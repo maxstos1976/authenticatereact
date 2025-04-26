@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
+Project Explanation
+This project is a simple example of how to protect private routes in a React application using Context API and React Router.
+The authentication flow is straightforward: the user logs in, accesses a protected page, and can log out.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📂 Code Structure
+AuthContext.tsx:
+Defines the authentication context, controlling the isAuthenticated state and exposing two functions:
 
-Currently, two official plugins are available:
+login(): authenticates the user.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+logout(): logs out the user.
 
-## Expanding the ESLint configuration
+PrivateRoute.tsx:
+A component that protects routes. If the user is not authenticated, it redirects to the login page.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+HomePage.tsx:
+A private page that is only accessible after login. It displays a welcome message and a logout button.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+LoginPage.tsx:
+A public page for user login. After clicking "Enter," the user is authenticated and redirected to the Home page.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+App.tsx:
+Where all routes are defined. All private routes are wrapped with the PrivateRoute component.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+🔒 How Route Protection Works
+The app starts with the user not authenticated (isAuthenticated = false).
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+When trying to access a private route (e.g., /home), PrivateRoute checks the state:
+
+If not authenticated, it redirects to /login.
+
+If authenticated, it grants access to the protected content.
+
+After logging in, isAuthenticated is set to true, allowing the user to navigate freely through private routes.
+
+The "Logout" button resets isAuthenticated to false, and the user is no longer considered authenticated.
+
+🚀 Technologies Used
+React
+
+TypeScript
+
+React Router DOM
+
+Context API
+
+📋 Basic Commands to Run the Project
+bash
+Copiar
+Editar
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+Note: This project is an educational example. In real applications, authentication should involve a backend server, token handling (e.g., JWT), and persistence using localStorage or sessionStorage.
