@@ -16,10 +16,13 @@ function LoginPage() {
         margin: "auto",
         padding: "2rem",
         textAlign: "center",
+        borderRadius: "40px",
+        backgroundColor: "lightblue",
+        boxShadow: "0px 0px 105px lightblue",
       }}
     >
       <h1>🔒 Login Page</h1>
-      <p>Por favor, faça login para continuar.</p>
+      <p>Please, make login to continue.</p>
       <button
         onClick={handleLogin}
         style={{ marginTop: "1rem", padding: "0.5rem 1rem" }}
